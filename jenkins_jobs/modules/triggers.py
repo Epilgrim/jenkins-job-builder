@@ -730,6 +730,49 @@ def script(parser, xml_parent, data):
     XML.SubElement(st, 'exitCode').text = str(data.get('exit-code', 0))
 
 
+def bitbucket_pull_request(parser, xml_parent, data):
+    """yaml: bitbucket-pull-request
+    Builds pull requests in bitbucket and report results.
+    Requires the Jenkins `Bitbucket Pull Request Builder Plugin.
+    <https://wiki.jenkins-ci.org/display/JENKINS/
+    Bitbucket+pullrequest+builder+plugin>`_
+
+    :arg string cron: cron syntax of when to run (required)
+    :arg string bitbucket-username: bitbucket BasicAuth username (required)
+    :arg string bitbucket-password: bitbucket BasicAuth password (required)
+    :arg string repository-owner: repository owner (required)
+    :arg string repository-name: repository owner (required)
+    :arg string skip-phrases:  skip phrases (optional)
+
+    Example:
+
+    .. literalinclude:: \
+        /../../tests/triggers/fixtures/bitbucket-pull-request.yaml
+    """
+
+    bt = XML.SubElement(xml_parent, 'bitbucketpullrequestbuilder.'
+                        'bitbucketpullrequestbuilder.'
+                        'BitbucketBuildTrigger')
+    required_args = [
+        'cron',
+        'bitbucket-username',
+        'bitbucket-password',
+        'repository-owner',
+        'repository-name'
+    ]
+    for arg in required_args:
+        if not data.get(arg, None):
+            raise jenkins_jobs.errors.JenkinsJobsException(
+                'bitbucket-pull-request is missing "{}"'.format(arg))
+    XML.SubElement(bt, 'spec').text = data.get('cron')
+    XML.SubElement(bt, 'cron').text = data.get('cron')
+    XML.SubElement(bt, 'username').text = data.get('bitbucket-username')
+    XML.SubElement(bt, 'password').text = data.get('bitbucket-password')
+    XML.SubElement(bt, 'repositoryOwner').text = data.get('repository-owner')
+    XML.SubElement(bt, 'repositoryName').text = data.get('repository-name')
+    XML.SubElement(bt, 'ciSkipPhrases').text = data.get('skip-phrases')
+
+
 class Triggers(jenkins_jobs.modules.base.Base):
     sequence = 50
 

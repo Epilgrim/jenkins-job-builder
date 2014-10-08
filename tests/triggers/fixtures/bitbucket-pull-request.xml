@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+  <triggers class="vector">
+    <bitbucketpullrequestbuilder.bitbucketpullrequestbuilder.BitbucketBuildTrigger>
+      <spec>* * * * *</spec>
+      <cron>* * * * *</cron>
+      <username>jenkins@example.com</username>
+      <password>secret</password>
+      <repositoryOwner>owner</repositoryOwner>
+      <repositoryName>jenkins-ci-test</repositoryName>
+      <ciSkipPhrases>phrase</ciSkipPhrases>
+    </bitbucketpullrequestbuilder.bitbucketpullrequestbuilder.BitbucketBuildTrigger>
+  </triggers>
+</project>
