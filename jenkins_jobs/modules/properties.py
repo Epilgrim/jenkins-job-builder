@@ -650,7 +650,8 @@ def slack(parser, xml_parent, data):
 
     Example:
 
-    .. slack
+    .. literalinclude:: \
+            /../../tests/properties/fixtures/slack.yaml
 
     """
     slack = XML.SubElement(xml_parent, 'jenkins.plugins'
