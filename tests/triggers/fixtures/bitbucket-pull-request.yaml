@@ -1,0 +1,8 @@
+triggers:
+  - bitbucket-pull-request:
+      cron: '* * * * *'
+      bitbucket-username: 'jenkins@example.com'
+      bitbucket-password: 'secret'
+      repository-owner: 'owner'
+      repository-name: 'jenkins-ci-test'
+      skip-phrases: 'phrase'
